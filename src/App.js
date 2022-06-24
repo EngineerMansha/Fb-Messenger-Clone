@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './App.css';
+import { Button,FormControl,InputLabel,Input } from '@material-ui/core';
+import Messages from './Components/Messages';
+
 
 function App() {
   const [input, setinput] = useState('');
@@ -7,6 +10,7 @@ function App() {
   console.log(input)
   console.log(message)
   const sendmsg = (event) => {
+    event.preventDefault();
     //all the logic send msg go to 
     setMessages([ ...message,input])
     setinput('');
@@ -16,12 +20,21 @@ function App() {
   return (
     <div className="App">
       <h1>Fb Clone</h1>
-      <input value={input} onChange={event=>setinput(event.target.value)} />
-      <button onClick={sendmsg}>Send Message</button>
+      <form>
+        <FormControl>
+          <InputLabel> Enter the message...</InputLabel>
+          <Input value={input} onChange={event => setinput(event.target.value)} />
+          <br></br>
+        <Button  variant="contained" color="primary" type='submit' onClick={sendmsg}>Send Message</Button>
+        </FormControl>
+     
+      </form>
+     
     
       {
         message.map(message => (
-          <p>{ message}</p>
+          <Messages text={message} />
+         
         ))
         
         
